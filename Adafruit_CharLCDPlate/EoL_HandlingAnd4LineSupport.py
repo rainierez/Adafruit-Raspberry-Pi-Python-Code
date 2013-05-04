@@ -35,7 +35,7 @@ from Adafruit_CharLCDPlate import Adafruit_CharLCDPlate
 
 lcd = Adafruit_CharLCDPlate()
 
-class CrumpLCD_EoL_Handling(Adafruit_CharLCDPlate):
+class LCD_EoL_Handling(Adafruit_CharLCDPlate):
     
     def __init__(self, cols=20, rows=4):    # Defaulted to 20x4 displays
         self.numrows = rows
@@ -81,12 +81,12 @@ if __name__ == '__main__':
     numcolumns = 20
     numrows = 4
     
-    eol = CrumpLCD_EoL_Handling(numcolumns, numrows)
+    eol = LCD_EoL_Handling(numcolumns, numrows)
     
     lcd.backlight(lcd.ON)
     lcd.begin(numcolumns, numrows)
     
-    eol.message("CrumpLCD\nEnd of Line Handling\nWith Forced\nCarriage Returns")
+    eol.message("CharLCD\nEnd of Line Handling\nWith Forced\nCarriage Returns")
     sleep(2)
     
     lcd.clear()
