@@ -17,22 +17,19 @@ class LCD_DataTable(Adafruit_CharLCDPlate):
     # Limited to 4 characters, 
     # position is left or right, 
     # line is 1-4
-    def labelHalf(self, text, position, line):
+    def updateHalfLabel(self, text, position, line):
+        self.clearHalfDataSet(position,line)
         if position == "left":
-            lcd.setCursor(0,line)
-            eol.message("    :")
             lcd.setCursor(0,line)
             eol.message(text[0:4]+':')        
         elif position == "right":
-            lcd.setCursor(10,line)
-            eol.message("    :")
             lcd.setCursor(10,line)
             eol.message('|'+text[0:4]+':')
             
     # Limited to 4 characters, 
     # position is left or right, 
     # line is 1-4
-    def valueHalf(self, text, position, line):
+    def updateHalfValue(self, text, position, line):
         if position == "left":
             lcd.setCursor(5,line)
             eol.message("    ")
@@ -45,20 +42,28 @@ class LCD_DataTable(Adafruit_CharLCDPlate):
             eol.message(text[0:4])
     
     # Writes up to a 9 character lable and value to a full line
-    def wholeLine(self, label, value, line):
-        self.clearLine(line)
+    def updateWholeLineLabel(self, label, line):
+        self.clearWholeLine(line)
         lcd.setCursor(0,line)
-        eol.message(label[0:10] + ': ')
-        lcd.setCursor(11,line)
+        eol.message(label[0:9] + ': ')
+    
+    # Writes up to a 9 character lable and value to a full line
+    def updateWholeLineValue(self, value, line):
+        lcd.setCursor(10,line)
         eol.message(value[0:10])
     
     #Clears an entire line
-    def clearLine(self, line):
+    def clearWholeLine(self, line):
         lcd.setCursor(0,line)
         eol.message(" " * columns)
-        
+    
+    #Clears an entire line
+    def clearWholeLineValue(self, line):
+        lcd.setCursor(10,line)
+        eol.message(" " * 10)
+    
     # Clears just a half data set, label and value   
-    def clearDataSet(self, position,line):
+    def clearHalfDataSet(self, position,line):
         if position == "left":
             lcd.setCursor(0,line)
             eol.message(" " * 10)
@@ -97,32 +102,84 @@ if __name__ == '__main__':
     
     #Filling the table with bogus info
     lcd.clear()
-    dt.labelHalf("Temp","left",0)
-    dt.labelHalf("Mode","right",0)
-    dt.labelHalf("Targ","left",1)
-    dt.labelHalf("Fan","right",1)
-    dt.valueHalf("Cool","right",0)
-    dt.valueHalf("75.5","left",0)
-    dt.valueHalf("Auto","right",1)
-    dt.valueHalf("74.0","left",1)
-    dt.wholeLine("Tempurature", "Too Hot",2)
-    
+    dt.updateHalfLabel("Temp","left",0)
+    dt.updateHalfLabel("Mode","right",0)
+    dt.updateHalfLabel("Targ","left",1)
+    dt.updateHalfLabel("Fan","right",1)
+    dt.updateHalfValue("Cool","right",0)
+    dt.updateHalfValue("75.5","left",0)
+    dt.updateHalfValue("Auto","right",1)
+    dt.updateHalfValue("74.0","left",1)
+    dt.updateWholeLineLabel("Tempurature",2)
+    dt.updateWholeLineValue("Too Hot!!!",2)
+    dt.updateWholeLineLabel("Humidity",3)
+    dt.updateWholeLineValue("100%!!!",3)
+        
     #Start testing updating and clearing parts
-    sleep(5)
-    dt.clearLine(0)
+    
+    # Clearing entire lines
     sleep(2)
-    dt.labelHalf("Temp","left",0)
-    dt.valueHalf("76.0","left",0)
+    dt.clearWholeLine(0)
+    sleep(1)
+    dt.clearWholeLine(3)
+    sleep(1)
+    
+    # Repopulating the lines just cleared
+    dt.updateHalfLabel("Temp","left",0)
+    dt.updateHalfValue("75.3","left",0)
+    dt.updateHalfLabel("Mode","right",0)
+    dt.updateHalfValue("Cool","right",0)
+    dt.updateWholeLineLabel("Humidity",3)
+    dt.updateWholeLineValue("100%!!!",3)
     sleep(2)
-    dt.valueHalf("74.75","left",0)
+    
+    # Clearing the entire Data set, both Label and Value
+    dt.clearHalfDataSet("left",0)
+    sleep(1)
+    dt.clearHalfDataSet("right",0)
+    sleep(1)
+    dt.clearHalfDataSet("left",1)
+    sleep(1)
+    dt.clearHalfDataSet("right",1)
     sleep(2)
-    dt.labelHalf("Mode","right",0)
-    dt.valueHalf("Both","right",0)
+    
+    # Repopulating the half labels and values just removed
+    dt.updateHalfLabel("Temp","left",0)
+    dt.updateHalfLabel("Mode","right",0)
+    dt.updateHalfLabel("Targ","left",1)
+    dt.updateHalfLabel("Fan","right",1)
+    
+    dt.updateHalfValue("75.5","left",0)
+    dt.updateHalfValue("Cool","right",0)
+    dt.updateHalfValue("74.0","left",1)
+    dt.updateHalfValue("On","right",1)
     sleep(2)
-    dt.valueHalf("On","right",0)
+    
+    # Clearing the values in the half data sets
+    dt.clearHalfValue("left",0)
+    sleep(1)
+    dt.clearHalfValue("right",0)
+    sleep(1)
+    dt.clearHalfValue("left",1)
+    sleep(1)
+    dt.clearHalfValue("right",1)
     sleep(2)
-    dt.clearDataSet("left",0)
+    
+    # Repopulating half data set values
+    dt.updateHalfValue("74.7","left",0)
+    sleep(1)
+    dt.updateHalfValue("Auto","right",0)
+    sleep(1)
+    dt.updateHalfValue("74.0","left",1)
+    sleep(1)
+    dt.updateHalfValue("On","right",1)
     sleep(2)
-    dt.labelHalf("Tempurature","left",0)
-    dt.valueHalf("85","left",0)
-    sleep(5)
+    
+    # Clearing the value on a full line entry
+    dt.clearWholeLineValue(2)
+    dt.clearWholeLineValue(3)
+    sleep(2)
+    
+    # Repopulating the values that was just removed
+    dt.updateWholeLineValue("Still Hot",2)
+    dt.updateWholeLineValue("90%",3)
