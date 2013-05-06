@@ -5,7 +5,7 @@
 # Date: May 2013
 #
 # A demo of some of the built in helper functions of 
-# the Adafruit_CharLCDPlate.py and Using the EoL_HandlingAnd4LineSupport.py
+# the Adafruit_CharLCDPlate.py and Using the LCD_EoL_HandlingAnd4LineSupport.py
 # 
 # Using Adafruit_CharLCD code with the I2C and MCP230xx code as well
 #----------------------------------------------------------------
