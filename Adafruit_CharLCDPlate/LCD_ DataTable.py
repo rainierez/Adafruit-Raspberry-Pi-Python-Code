@@ -11,7 +11,7 @@
 
 from time import sleep
 from Adafruit_CharLCDPlate import Adafruit_CharLCDPlate
-from EoL_HandlingAnd4LineSupport import LCD_EoL_Handling
+from LCD_EoL_HandlingAnd4LineSupport import LCD_EoL_Handling
 
 class LCD_DataTable(Adafruit_CharLCDPlate):
     # Limited to 4 characters, 
