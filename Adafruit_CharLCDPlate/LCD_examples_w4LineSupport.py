@@ -12,7 +12,7 @@
 
 from time import sleep
 from Adafruit_CharLCDPlate import Adafruit_CharLCDPlate
-from EoL_HandlingAnd4LineSupport import LCD_EoL_Handling
+from LCD_EoL_HandlingAnd4LineSupport import LCD_EoL_Handling
 
 lcd = Adafruit_CharLCDPlate()
 eol = LCD_EoL_Handling()
@@ -29,6 +29,7 @@ sleep(2)
 while True:
     #Text on each line alone.
     lcd.clear()
+    lcd.setCursor(0,0)
     eol.message("Line 1")
     sleep(1)
     
@@ -47,30 +48,36 @@ while True:
     eol.message("Line 4")
     sleep(1)
     
+    # Using the "\n" new line marker
     lcd.clear()
+    lcd.setCursor(0,0)
     eol.message("Line 1")
     sleep(1)
     
-    # Using the "\n" new line marker
     lcd.clear()
+    lcd.setCursor(0,0)
     eol.message("Line 1\nLine 2")
     sleep(1)
     
     lcd.clear()
+    lcd.setCursor(0,0)
     eol.message("Line 1\nLine 2\nLine 3")
     sleep(1)
     
     lcd.clear()
+    lcd.setCursor(0,0)
     eol.message("Line 1\nLine 2\nLine 3\nLine 4")
     sleep(1)
         
     # Auto line limiting by length as to not overflow the display
     # This is line by line and does not to any caraige returns
     lcd.clear()
+    lcd.setCursor(0,0)
     eol.message("This String is 33 Characters long",1)
     sleep(2)    
     
     lcd.clear()
+    lcd.setCursor(0,0)
     eol.message("This String has elpise",2)
     sleep(2)    
     
@@ -79,6 +86,7 @@ while True:
     i=0
     while i<20:
         lcd.clear()
+        lcd.setCursor(0,0)
         suffix = " " * i
         eol.message(suffix + messageToPrint,0)
         sleep(.25)
@@ -89,6 +97,7 @@ while True:
     i=20
     while i>=0:
         lcd.clear()
+        lcd.setCursor(0,0)
         suffix = " " * i
         eol.message(suffix + messageToPrint,0)
         sleep(.25)
@@ -97,6 +106,7 @@ while True:
     
     # Printing text backwards, NOT right justified
     lcd.clear()
+    lcd.setCursor(0,0)
     eol.message("Right to left:")
     lcd.setCursor(10,1)
     lcd.rightToLeft()
@@ -105,6 +115,7 @@ while True:
     
     # Printing normally from the middle of the line
     lcd.clear()
+    lcd.setCursor(0,0)
     eol.message("Left to Right:")
     lcd.setCursor(10,1)
     lcd.message("Testing")
@@ -112,6 +123,7 @@ while True:
     
     # Enabling the cursor and having it blink
     lcd.clear()
+    lcd.setCursor(0,0)
     lcd.cursor()
     lcd.blink()
     eol.message("Cursor is blinking")
@@ -122,6 +134,7 @@ while True:
     
     # Turning the backlight off and showing a simple count down
     lcd.clear()
+    lcd.setCursor(0,0)
     eol.message("Backlight off in")
     lcd.setCursor(0,3)
     eol.message("Back on in 3sec")
@@ -139,6 +152,7 @@ while True:
     
     lcd.backlight(lcd.OFF)
     lcd.clear()
+    lcd.setCursor(0,0)
     sleep(3)
     lcd.backlight(lcd.ON)
     eol.message("Backlight on")    
