@@ -10,7 +10,7 @@
 #----------------------------------------------------------------
 
 from time import sleep
-from Adafruit_CharLCDPlate import Adafruit_CharLCDPlate
+from Adafruit_CharLCDPlate4line import Adafruit_CharLCDPlate
 from LCD_EoL_HandlingAnd4LineSupport import LCD_EoL_Handling
 
 class LCD_DataTable(Adafruit_CharLCDPlate):
